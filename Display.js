@@ -2,6 +2,7 @@ class Display {
     constructor(displayValorAnterior, displayValorActual) {
         this.displayValorActual = displayValorActual;
         this.displayValorAnterior = displayValorAnterior;
+        this.info = document.getElementById('info');  // Seleccionamos el campo informativo
         this.calculador = new Calculadora();
         this.tipoOperacion = undefined;
         this.valorActual = '';
@@ -24,6 +25,7 @@ class Display {
         this.valorAnterior = '';
         this.tipoOperacion = undefined;
         this.imprimirValores();
+        this.reiniciarInfo();  // Restablecemos el campo informativo
     }
 
     computar(tipo) {
@@ -32,6 +34,7 @@ class Display {
         this.valorAnterior = this.valorActual || this.valorAnterior;
         this.valorActual = '';
         this.imprimirValores();
+        this.rellenarInfo();  // Llamamos a la función para actualizar el campo informativo
     }
 
     agregarNumero(numero) {
@@ -51,5 +54,24 @@ class Display {
 
         if( isNaN(valorActual)  || isNaN(valorAnterior) ) return
         this.valorActual = this.calculador[this.tipoOperacion](valorAnterior, valorActual);
+    }
+
+    // Nueva función para actualizar el campo informativo
+    rellenarInfo() {
+        const resultado = parseFloat(this.valorActual);
+        if (!isNaN(resultado)) {
+            if (resultado < 100) {
+                this.info.textContent = "Info: El resultado es menor que 100";
+            } else if (resultado >= 100 && resultado <= 200) {
+                this.info.textContent = "Info: El resultado está entre 100 y 200";
+            } else if (resultado > 200) {
+                this.info.textContent = "Info: El resultado es superior a 200";
+            }
+        }
+    }
+
+    // Nueva función para restablecer el campo informativo
+    reiniciarInfo() {
+        this.info.textContent = "Info sobre el número";
     }
 }
