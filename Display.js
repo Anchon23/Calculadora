@@ -38,7 +38,7 @@ class Display {
     }
 
     agregarNumero(numero) {
-        if(numero === '.' && this.valorActual.includes('.')) return
+        if (numero === '.' && this.valorActual.includes('.')) return
         this.valorActual = this.valorActual.toString() + numero.toString();
         this.imprimirValores();
     }
@@ -52,11 +52,43 @@ class Display {
         const valorAnterior = parseFloat(this.valorAnterior);
         const valorActual = parseFloat(this.valorActual);
 
-        if( isNaN(valorActual)  || isNaN(valorAnterior) ) return
+        if (isNaN(valorActual) || isNaN(valorAnterior)) return;
         this.valorActual = this.calculador[this.tipoOperacion](valorAnterior, valorActual);
+        this.rellenarInfo();  // Actualizamos el campo informativo con el resultado
     }
 
-    // Nueva función para actualizar el campo informativo
+    // Función para calcular el cuadrado
+    cuadrado() {
+        const valorActual = parseFloat(this.valorActual);
+        if (isNaN(valorActual)) return;
+        this.valorActual = Math.pow(valorActual, 2);
+        this.imprimirValores();
+        this.rellenarInfo();
+    }
+
+    // Función para calcular el módulo
+    mod() {
+        const valorActual = parseFloat(this.valorActual);
+        if (isNaN(valorActual)) return;
+        this.valorActual = valorActual < 0 ? -valorActual : valorActual;
+        this.imprimirValores();
+        this.rellenarInfo();
+    }
+
+    // Función para calcular el factorial
+    fact() {
+        const valorActual = parseFloat(this.valorActual);
+        if (isNaN(valorActual) || valorActual < 0 || !Number.isInteger(valorActual)) return;
+        this.valorActual = this.factorial(valorActual);
+        this.imprimirValores();
+        this.rellenarInfo();
+    }
+
+    factorial(n) {
+        return n === 0 ? 1 : n * this.factorial(n - 1);
+    }
+
+    // Función para actualizar el campo informativo
     rellenarInfo() {
         const resultado = parseFloat(this.valorActual);
         if (!isNaN(resultado)) {
@@ -70,7 +102,7 @@ class Display {
         }
     }
 
-    // Nueva función para restablecer el campo informativo
+    // Función para restablecer el campo informativo
     reiniciarInfo() {
         this.info.textContent = "Info sobre el número";
     }
