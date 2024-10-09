@@ -47,3 +47,7 @@ function rellenar_info(resultado) {
         info.textContent = "Info: El resultado es superior a 200";
     }
 }
+document.getElementById('raiz-cuadrada').addEventListener('click', () => display.raizCuadrada());
+document.getElementById('potencia').addEventListener('click', () => display.elevarPotencia());
+document.getElementById('modulo').addEventListener('click', () => display.mod());
+document.getElementById('factorial').addEventListener('click', () => display.fact());

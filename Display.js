@@ -3,6 +3,7 @@ class Display {
         this.displayValorActual = displayValorActual;
         this.displayValorAnterior = displayValorAnterior;
         this.info = document.getElementById('info');  // Seleccionamos el campo informativo
+        this.exponente = document.getElementById('exponente'); // Seleccionamos el campo de la potencia personalizada
         this.calculador = new Calculadora();
         this.tipoOperacion = undefined;
         this.valorActual = '';
@@ -62,6 +63,41 @@ class Display {
         const valorActual = parseFloat(this.valorActual);
         if (isNaN(valorActual)) return;
         this.valorActual = Math.pow(valorActual, 2);
+        this.imprimirValores();
+        this.rellenarInfo();
+    }
+
+    // Función para calcular el cubo
+    cubo() {
+        const valorActual = parseFloat(this.valorActual);
+        if (isNaN(valorActual)) return;
+        this.valorActual = Math.pow(valorActual, 3);
+        this.imprimirValores();
+        this.rellenarInfo();
+    }
+
+    // Función para calcular la raíz cuadrada
+    raizCuadrada() {
+        const valorActual = parseFloat(this.valorActual);
+        if (isNaN(valorActual)) return;
+
+        if (valorActual < 0) {
+            this.info.textContent = "Info: No se puede calcular la raíz de un número negativo.";
+            return;
+        }
+
+        this.valorActual = Math.sqrt(valorActual);
+        this.imprimirValores();
+        this.rellenarInfo();
+    }
+
+    // Función para calcular cualquier potencia
+    elevarPotencia() {
+        const valorActual = parseFloat(this.valorActual);
+        const exponente = parseFloat(this.exponente.value);
+
+        if (isNaN(valorActual) || isNaN(exponente)) return;
+        this.valorActual = Math.pow(valorActual, exponente);
         this.imprimirValores();
         this.rellenarInfo();
     }
