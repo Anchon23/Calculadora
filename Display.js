@@ -129,11 +129,11 @@ class Display {
         const resultado = parseFloat(this.valorActual);
         if (!isNaN(resultado)) {
             if (resultado < 100) {
-                this.info.textContent = "Info: El resultado es menor que 100";
+                this.info.textContent = `Info: El resultado es menor que 100 y es ${resultado >= 0 ? 'positivo' : 'negativo'}`;
             } else if (resultado >= 100 && resultado <= 200) {
-                this.info.textContent = "Info: El resultado está entre 100 y 200";
+                this.info.textContent = `Info: El resultado está entre 100 y 200 y es ${resultado >= 0 ? 'positivo' : 'negativo'}`;
             } else if (resultado > 200) {
-                this.info.textContent = "Info: El resultado es superior a 200";
+                this.info.textContent = `Info: El resultado es superior a 200 y es ${resultado >= 0 ? 'positivo' : 'negativo'}`;
             }
         }
     }
