@@ -46,58 +46,19 @@ class Calculadora {
         return num * this.factorial(num - 1);
     }
 
-    // Métodos para operaciones con listas
     sumatorio(lista) {
-        return lista.reduce((acc, val) => acc + parseFloat(val), 0);
+        return lista.reduce((acc, num) => acc + num, 0);
     }
 
     ordenar(lista) {
-        return lista.sort((a, b) => a - b);
+        return lista.slice().sort((a, b) => a - b); // Copia la lista y la ordena de forma ascendente
     }
 
     revertir(lista) {
-        return lista.reverse();
+        return lista.slice().reverse(); // Copia la lista y la invierte
     }
 
     quitar(lista) {
-        lista.pop();
-        return lista;
+        return lista.slice(0, -1); // Copia la lista y elimina el último elemento
     }
-
-    // Método de ayuda para obtener los valores en formato de lista desde el input
-    obtenerValores(input) {
-        return input.split(',').map(Number);
-    }
-}
-
-// Instancia de la calculadora
-const calculadora = new Calculadora();
-
-// Implementación de las funciones para manejar la interacción
-function realizarSumatorio() {
-    const valores = calculadora.obtenerValores(display.valorActual);
-    const resultado = calculadora.sumatorio(valores);
-    display.valorActual = resultado;
-    display.imprimirValores();
-}
-
-function realizarOrdenar() {
-    const valores = calculadora.obtenerValores(display.valorActual);
-    const resultado = calculadora.ordenar(valores);
-    display.valorActual = resultado.join(',');
-    display.imprimirValores();
-}
-
-function realizarRevertir() {
-    const valores = calculadora.obtenerValores(display.valorActual);
-    const resultado = calculadora.revertir(valores);
-    display.valorActual = resultado.join(',');
-    display.imprimirValores();
-}
-
-function realizarQuitar() {
-    const valores = calculadora.obtenerValores(display.valorActual);
-    const resultado = calculadora.quitar(valores);
-    display.valorActual = resultado.join(',');
-    display.imprimirValores();
 }

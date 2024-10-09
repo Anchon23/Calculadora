@@ -8,6 +8,7 @@ class Display {
         this.tipoOperacion = undefined;
         this.valorActual = '';
         this.valorAnterior = '';
+        this.listaValores = []; // Almacena la lista de valores
         this.signos = {
             sumar: '+',
             dividir: '/',
@@ -39,14 +40,14 @@ class Display {
     }
 
     agregarNumero(numero) {
-        if (numero === '.' && this.valorActual.includes('.')) return
-        this.valorActual = this.valorActual.toString() + numero.toString();
+        // Permite agregar números y puntos al valor actual
+        this.valorActual += numero;  // Agregar el número o punto al valor actual
         this.imprimirValores();
     }
 
     imprimirValores() {
         this.displayValorActual.textContent = this.valorActual;
-        this.displayValorAnterior.textContent = `${this.valorAnterior} ${this.signos[this.tipoOperacion] || ''}`;
+        this.displayValorAnterior.textContent = this.valorAnterior;
     }
 
     calcular() {
@@ -141,5 +142,40 @@ class Display {
     // Función para restablecer el campo informativo
     reiniciarInfo() {
         this.info.textContent = "Info sobre el número";
+    }
+
+    // Método para guardar el valor actual en la lista
+    agregarALista() {
+        if (this.valorActual !== '') {
+            // Permitir múltiples números decimales separados por punto
+            const numeros = this.valorActual.split('.').map(num => parseFloat(num)).filter(num => !isNaN(num));
+            this.listaValores.push(...numeros); // Agregar todos los números a la lista
+            this.valorActual = '';  // Reinicia el valor actual después de agregar a la lista
+        }
+        this.imprimirValores();
+    }
+
+    sumatorio() {
+        const resultado = this.listaValores.reduce((acc, num) => acc + num, 0);
+        this.valorActual = resultado.toString();
+        this.imprimirValores();
+    }
+
+    ordenar() {
+        this.listaValores.sort((a, b) => a - b);
+        this.valorActual = this.listaValores.join(', ');
+        this.imprimirValores();
+    }
+
+    revertir() {
+        this.listaValores.reverse();
+        this.valorActual = this.listaValores.join(', ');
+        this.imprimirValores();
+    }
+
+    quitar() {
+        this.listaValores.pop();
+        this.valorActual = this.listaValores.join(', ');
+        this.imprimirValores();
     }
 }

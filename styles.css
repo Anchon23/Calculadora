@@ -106,3 +106,25 @@ button:focus {
     color: #000000; /* Color negro para el texto ingresado */
     background-color: #ffffff; /* Fondo blanco */
 }
+
+.input-lista {
+    grid-column: 1 / -1;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 1.2em;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+#sumatorio, #ordenar, #revertir, #quitar {
+    background-color: #007b7a;
+    color: #fff;
+    font-size: 1.2em;
+    border-radius: 12px;
+    box-shadow: 5px 5px 10px -3px #00000040, -5px -5px 15px 3px #00ffc11f;
+}
+
+#sumatorio:hover, #ordenar:hover, #revertir:hover, #quitar:hover {
+    background-color: #006f54;
+}
