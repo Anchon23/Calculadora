@@ -51,3 +51,5 @@ document.getElementById('raiz-cuadrada').addEventListener('click', () => display
 document.getElementById('potencia').addEventListener('click', () => display.elevarPotencia());
 document.getElementById('modulo').addEventListener('click', () => display.mod());
 document.getElementById('factorial').addEventListener('click', () => display.fact());
+document.getElementById('valor-actual').classList.add('potencia');
+document.getElementById('valor-actual').classList.remove('potencia');

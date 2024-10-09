@@ -101,3 +101,8 @@ button:focus {
 #cuadrado:active, #modulo:active, #factorial:active {
     background-color: #005946;
 }
+
+#exponente {
+    color: #000000; /* Color negro para el texto ingresado */
+    background-color: #ffffff; /* Fondo blanco */
+}
