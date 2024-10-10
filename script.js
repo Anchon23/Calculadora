@@ -1,64 +1,213 @@
-class Calculadora {
-    // Métodos de operaciones básicas
-    sumar(num1, num2) {
-        return num1 + num2;
-    }
+let currentNumber = '';
+let previousNumber = '';
+let operation = null;
 
-    restar(num1, num2) {
-        return num1 - num2;
-    }
+document.addEventListener('keydown', handleKeyPress);
 
-    multiplicar(num1, num2) {
-        return num1 * num2;
+function handleKeyPress(event) {
+    const key = event.key;
+    if (isNumber(key) || key === ',') {
+        appendNumber(key);
+    } else if (isOperation(key)) {
+        chooseOperation(key);
+    } else if (key === 'Enter') {
+        calculate();
+    } else if (key === 'Backspace') {
+        deleteLastDigit();
     }
+}
 
-    dividir(num1, num2) {
-        return num1 / num2;
-    }
+function isNumber(key) {
+    return /\d/.test(key);
+}
 
-    cuadrado(num) {
-        return Math.pow(num, 2);
-    }
+function isOperation(key) {
+    return ['+', '-', '*', '/'].includes(key);
+}
 
-    cubo(num) {
-        return Math.pow(num, 3);
-    }
+function appendNumber(number) {
+    currentNumber += number;
+    updateDisplay();
+}
 
-    raizCuadrada(num) {
-        if (num < 0) {
-            return NaN;
-        }
-        return Math.sqrt(num);
-    }
+function appendComma() {
+    currentNumber += ',';
+    updateDisplay();
+}
 
-    elevarPotencia(num, exponente) {
-        return Math.pow(num, exponente);
+function chooseOperation(op) {
+    if (currentNumber === '') return;
+    if (previousNumber !== '') {
+        calculate();
     }
+    operation = op;
+    previousNumber = currentNumber;
+    currentNumber = '';
+}
 
-    modulo(num) {
-        return num < 0 ? -num : num;
+function calculate() {
+    let result;
+    const prev = parseFloat(previousNumber.replace(',', '.'));
+    const current = parseFloat(currentNumber.replace(',', '.'));
+    if (isNaN(prev) || isNaN(current)) return;
+    switch (operation) {
+        case '+':
+            result = prev + current;
+            break;
+        case '-':
+            result = prev - current;
+            break;
+        case '*':
+            result = prev * current;
+            break;
+        case '/':
+            result = prev / current;
+            break;
+        default:
+            return;
     }
+    currentNumber = result.toString().replace('.', ',');
+    operation = null;
+    previousNumber = '';
+    updateDisplay();
+    rellenar_info(result);
+}
 
-    factorial(num) {
-        if (num === 0) {
-            return 1;
-        }
-        return num * this.factorial(num - 1);
-    }
+function clearDisplay() {
+    currentNumber = '';
+    previousNumber = '';
+    operation = null;
+    updateDisplay();
+}
 
-    sumatorio(lista) {
-        return lista.reduce((acc, num) => acc + num, 0);
-    }
+function updateDisplay() {
+    document.getElementById('display').value = currentNumber;
+}
 
-    ordenar(lista) {
-        return lista.slice().sort((a, b) => a - b); // Copia la lista y la ordena de forma ascendente
-    }
+function calculateSquare() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    const result = number * number;
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
 
-    revertir(lista) {
-        return lista.slice().reverse(); // Copia la lista y la invierte
-    }
+function mod() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    const result = Math.abs(number);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
 
-    quitar(lista) {
-        return lista.slice(0, -1); // Copia la lista y elimina el último elemento
+function fact() {
+    if (currentNumber === '') return;
+    let number = parseInt(currentNumber);
+    if (number < 0) return;
+    let result = 1;
+    for (let i = 1; i <= number; i++) {
+        result *= i;
     }
+    currentNumber = result.toString();
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function rellenar_info(result) {
+    const infoElement = document.getElementById('info');
+    if (result < 100) {
+        infoElement.textContent = "Info: El resultado es menor que 100";
+    } else if (result >= 100 && result <= 200) {
+        infoElement.textContent = "Info: El resultado está entre 100 y 200";
+    } else {
+        infoElement.textContent = "Info: El resultado es superior a 200";
+    }
+}
+
+function sumatorio() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',').map(Number);
+    const result = numbers.reduce((acc, num) => acc + num, 0);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function ordenar() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',').map(Number);
+    numbers.sort((a, b) => a - b);
+    currentNumber = numbers.join(',');
+    updateDisplay();
+}
+
+function revertir() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',');
+    numbers.reverse();
+    currentNumber = numbers.join(',');
+    updateDisplay();
+}
+
+function quitar() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',');
+    numbers.pop();
+    currentNumber = numbers.join(',');
+    updateDisplay();
+}
+
+function deleteLastDigit() {
+    currentNumber = currentNumber.slice(0, -1);
+    updateDisplay();
+}
+
+function changeSign() {
+    if (currentNumber === '') return;
+    currentNumber = (-parseFloat(currentNumber.replace(',', '.'))).toString().replace('.', ',');
+    updateDisplay();
+}
+
+function elevarAlCuadrado() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    const result = number * number;
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function sumatorio() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',').map(Number);
+    const result = numbers.reduce((acc, num) => acc + num, 0);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function ordenar() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',').map(Number);
+    numbers.sort((a, b) => a - b);
+    currentNumber = numbers.join(',');
+    updateDisplay();
+}
+
+function revertir() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',');
+    numbers.reverse();
+    currentNumber = numbers.join(',');
+    updateDisplay();
+}
+
+function quitar() {
+    if (currentNumber === '') return;
+    const numbers = currentNumber.split(',');
+    numbers.pop();
+    currentNumber = numbers.join(',');
+    updateDisplay();
 }

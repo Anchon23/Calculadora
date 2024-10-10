@@ -1,59 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap">
+    <script src="scripts.js"></script>
     <title>Calculadora</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet" />
-    <script src="Display.js" type="text/javascript"></script>
-    <script src="script.js" type="text/javascript"></script>
-    <script src="index.js" type="text/javascript" defer></script>
 </head>
 <body>
-    <div class="container">
-        <div class="calculadora">
-            <div class="display">
-                <div id="valor-anterior"></div>
-                <div id="valor-actual"></div>
-            </div>
-            <button class="col-2" onclick="display.borrarTodo()">C</button>
-            <button onclick="display.borrar()">&larr;</button>
-            <button class="operador" value="dividir">/</button>
-            <button class="numero">7</button>
-            <button class="numero">8</button>
-            <button class="numero">9</button>
-            <button class="operador" value="multiplicar">X</button>
-            <button class="numero">4</button>
-            <button class="numero">5</button>
-            <button class="numero">6</button>
-            <button class="operador" value="restar">-</button>
-            <button class="numero">1</button>
-            <button class="numero">2</button>
-            <button class="numero">3</button>
-            <button class="operador" value="sumar">+</button>
-            <button class="col-2 numero">0</button>
-            <button class="numero">.</button>
-            <button class="operador" value="igual">=</button>
-
-            <!-- Nuevos botones para las operaciones adicionales -->
-            <button id="cuadrado" onclick="display.cuadrado()">x²</button>
-            <button id="modulo" onclick="display.mod()">|X|</button>
-            <button id="factorial" onclick="display.fact()">X!</button>
-            <button id="cubo" onclick="display.cubo()">x³</button>
-            <button id="raiz" onclick="display.raizCuadrada()">√</button>
-            <button id="potencia" onclick="display.elevarPotencia()">x^y</button>
-            <!-- Nuevos botones para operaciones con listas -->
-            <button id="sumatorio" onclick="display.sumarLista()">Σ</button>
-            <button id="ordenar" onclick="display.ordenar()">Ordenar</button>
-            <button id="revertir" onclick="display.revertir()">Revertir</button>
-            <button id="quitar" onclick="display.quitar()">Quitar</button>
-            <!-- Campo para ingresar la potencia personalizada -->
-            <input type="number" id="exponente" placeholder="Ingresa potencia" class="input-potencia"/>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div class="buttons">
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="chooseOperation('/')">/</button>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button operator" onclick="chooseOperation('*')">*</button>
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button operator" onclick="chooseOperation('-')">-</button>
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendComma()">,</button>
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="chooseOperation('+')">+</button>
+            <button class="button" onclick="calculate()">=</button>
+            <button class="button" onclick="elevarAlCuadrado()">x²</button>
+            <button class="button" id="modulo" onclick="mod()">|X|</button>
+            <button class="button" id="factorial" onclick="fact()">X!</button>
+            <button class="button" id="sumatorio" onclick="sumatorio()">Sumatorio</button>
+            <button class="button" id="ordenar" onclick="ordenar()">Ordenar</button>
+            <button class="button" id="revertir" onclick="revertir()">Revertir</button>
+            <button class="button" id="quitar" onclick="quitar()">Quitar</button>
         </div>
-
-        <!-- Nuevo campo informativo -->
-        <h2 id="info" class="grande" title="Info sobre el número">Info sobre el número</h2>
     </div>
+    <h2 id="info" class="grande" title="Info sobre el número">Info sobre el número</h2>
+    <script src="scripts.js"></script>
 </body>
 </html>
