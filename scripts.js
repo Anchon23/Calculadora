@@ -211,3 +211,94 @@ function quitar() {
     currentNumber = numbers.join(',');
     updateDisplay();
 }
+
+function raizCuadrada() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    if (number < 0) return; // La raíz cuadrada de números negativos no está definida en los reales
+    const result = Math.sqrt(number);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function elevarAlCubo() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    const result = Math.pow(number, 3);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function calcularSeno() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    const result = Math.sin(number);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function calcularCoseno() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    const result = Math.cos(number);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function calcularTangente() {
+    if (currentNumber === '') return;
+    const number = parseFloat(currentNumber.replace(',', '.'));
+    const result = Math.tan(number);
+    currentNumber = result.toString().replace('.', ',');
+    updateDisplay();
+    rellenar_info(result);
+}
+
+function appendNumber(number) {
+    currentNumber += number;
+    updateDisplay();
+}
+
+function chooseOperation(op) {
+    if (currentNumber === '') return; // No hacer nada si no hay un número
+    if (previousNumber !== '') {
+        calculate(); // Realiza el cálculo si hay un número anterior
+    }
+    operation = op;
+    previousNumber += currentNumber + ' ' + operation + ' '; // Concatenar el número y el operador al texto de la pantalla
+    currentNumber = ''; // Reinicia currentNumber para ingresar un nuevo número
+    updateDisplay();
+}
+
+function updateDisplay() {
+    // Actualiza el display mostrando la expresión actual
+    document.getElementById('display').value = previousNumber + currentNumber; // Muestra la operación completa
+}
+
+function clearDisplay() {
+    currentNumber = '';
+    previousNumber = '';
+    operation = null;
+    updateDisplay();
+    document.getElementById('info').textContent = 'Info sobre el número'; // Reiniciar mensaje de información
+}
+
+function chooseExponent() {
+    const base = parseFloat(currentNumber.replace(',', '.')); // Obtener la base actual
+    const exponentInput = document.getElementById('exponentInput').value;
+    
+    if (base === '' || exponentInput === '') return; // Verificar que ambos números estén presentes
+    
+    const exponent = parseFloat(exponentInput); // Obtener el exponente
+
+    if (isNaN(base) || isNaN(exponent)) return; // Validación de que ambos son números
+
+    const result = Math.pow(base, exponent); // Elevar base a la potencia exponente
+    currentNumber = result.toString().replace('.', ','); // Convertir el resultado a formato de calculadora
+    updateDisplay();
+    rellenar_info(result); // Mostrar información sobre el número
+}
