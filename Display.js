@@ -3,7 +3,6 @@ class Display {
         this.displayValorActual = displayValorActual;
         this.displayValorAnterior = displayValorAnterior;
         this.info = document.getElementById('info');  // Seleccionamos el campo informativo
-        this.exponente = document.getElementById('exponente'); // Seleccionamos el campo de la potencia personalizada
         this.calculador = new Calculadora();
         this.tipoOperacion = undefined;
         this.valorActual = '';
@@ -40,7 +39,6 @@ class Display {
     }
 
     agregarNumero(numero) {
-        // Permite agregar números y puntos al valor actual
         this.valorActual += numero;  // Agregar el número o punto al valor actual
         this.imprimirValores();
     }
@@ -156,26 +154,26 @@ class Display {
     }
 
     sumatorio() {
-        const resultado = this.listaValores.reduce((acc, num) => acc + num, 0);
+        const resultado = this.calculador.sumatorio(this.listaValores);
         this.valorActual = resultado.toString();
-        this.imprimirValores();
+        this.imprimirValores();  // Muestra el resultado en la pantalla
     }
 
     ordenar() {
-        this.listaValores.sort((a, b) => a - b);
-        this.valorActual = this.listaValores.join(', ');
+        const resultado = this.calculador.ordenar(this.listaValores);
+        this.valorActual = resultado.join(', ');  // Muestra la lista ordenada en la pantalla
         this.imprimirValores();
     }
 
     revertir() {
-        this.listaValores.reverse();
-        this.valorActual = this.listaValores.join(', ');
+        const resultado = this.calculador.revertir(this.listaValores);
+        this.valorActual = resultado.join(', ');  // Muestra la lista revertida en la pantalla
         this.imprimirValores();
     }
 
     quitar() {
-        this.listaValores.pop();
-        this.valorActual = this.listaValores.join(', ');
+        this.listaValores = this.calculador.quitar(this.listaValores); // Eliminar el último elemento
+        this.valorActual = this.listaValores.join(', ');  // Muestra la lista actualizada en la pantalla
         this.imprimirValores();
     }
 }
