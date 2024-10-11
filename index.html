@@ -8,6 +8,8 @@
     <title>Calculadora</title>
 </head>
 <body>
+    <div class="background-left"></div>
+    <div class="background-right"></div>
     <div class="calculator">
         <input type="text" class="display" id="display" disabled>
 
@@ -31,23 +33,23 @@
             <button class="button" onclick="appendNumber('0')">0</button>
             <button class="button" onclick="appendComma()">,</button>
 
+            <button class="button special-button" id="modulo" onclick="mod()">|X|</button>
+            <button class="button special-button" id="factorial" onclick="fact()">X!</button>
+            <button class="button special-button" onclick="raizCuadrada()">√</button>
+
             <button class="button methods" id="sumatorio" onclick="sumatorio()">Sumatorio</button>
             <button class="button methods" id="ordenar" onclick="ordenar()">Ordenar</button>
             <button class="button methods" id="revertir" onclick="revertir()">Revertir</button>
             <button class="button methods" id="quitar" onclick="quitar()">Quitar</button>
 
-            <button class="button" onclick="elevarAlCuadrado()">x²</button>
-            <button class="button" id="modulo" onclick="mod()">|X|</button>
-            <button class="button" id="factorial" onclick="fact()">X!</button>
-            <button class="button" onclick="raizCuadrada()">√</button>
-            <button class="button" onclick="elevarAlCubo()">x³</button>
-            <button class="button" onclick="calcularSeno()">sin</button>
-            <button class="button" onclick="calcularCoseno()">cos</button>
-            <button class="button" onclick="calcularTangente()">tan</button>
-            <button class="button operator" onclick="chooseExponent()">x^y</button>
-            <input type="number" id="exponentInput" placeholder="y" style="grid-column: span 4;" />
-
+            <button class="button special-button" onclick="calcularSeno()">sin</button>
+            <button class="button special-button" onclick="calcularCoseno()">cos</button>
+            <button class="button special-button" onclick="calcularTangente()">tan</button>
+            <button class="button special-button" onclick="elevarAlCuadrado()">x²</button>
+            <button class="button special-button" onclick="chooseExponent()">x^y</button>
+            <button class="button special-button" onclick="elevarAlCubo()">x³</button>
             <button class="button equal" onclick="calculate()">=</button>
+            <input type="number" id="exponentInput" min="0" step="1" placeholder="y" style="grid-column: span 4;" />
         </div>
     </div>
     <h2 id="info" class="grande" title="Info sobre el número">Info sobre el número</h2>
